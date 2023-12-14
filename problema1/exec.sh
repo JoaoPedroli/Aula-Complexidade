@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+g++ testbench.cpp
+for i in {1..10}; 
+do
+	echo "Caso teste $i"
+	./a.out < $i.txt
+done;
+rm a.out
+
