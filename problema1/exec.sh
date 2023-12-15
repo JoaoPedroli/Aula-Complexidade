@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-g++ testbench.cpp
+g++ testbench.cpp -O0
 for i in {1..10}; 
 do
 	echo "Caso teste $i"

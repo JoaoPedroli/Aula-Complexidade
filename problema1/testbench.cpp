@@ -1,32 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int funcA(int n, int m, vector<int> &v){
-	for(int i = 0; i < n; i++)
-		if(v[i] == m)
-			return i;
-	return -1;
+int fromFront(int n, int m, vector<int> *v){
+	for(int i = 0, steps = 0; i < n; i++, steps++){
+		if((*v)[i] == m){
+			return steps;
+		}
+	}
+	return n;
 }
 
-int funcB(int n, int m, vector<int> &v){
-	for(int i = n-1; i > 0; i--)
-		if(v[i] == m)
-			return i;
-	return -1;
+
+int fromBack(int n, int m, vector<int> *v){
+	for(int i = n-1, steps = 0; i > 0; i--, steps++){
+		if((*v)[i] == m){
+			return steps;
+		}
+	}
+	return n;
 }
+
+
+void testbench(int (*func)(int, int, vector<int>*), int n, int m, vector<int> *v, string name){
+	auto start = chrono::high_resolution_clock::now();
+	int ret = func(n, m, v);
+	auto end = chrono::high_resolution_clock::now();
+	double elapsed_seconds = chrono::duration<double>(end-start).count();
+	cout << fixed << setprecision(6);
+	cout << name << " -> " << elapsed_seconds << "s - " << ret + 1 << " steps"<< endl; 
+}
+
 int main(){
 	int n, m, ret;
 	cin >> n >> m;
 	vector<int> v(n);
 	for(auto &it: v) cin >> it;
-	clock_t start, end;
-	start = clock();
-	ret = funcA(n, m, v);
-	end = clock();
-	cout << fixed << setprecision(6);
-	cout << "A -> " << double(end - start)/CLOCKS_PER_SEC << "s - " << (ret == -1? n: ret + 1) << " ops"<< endl; 
-	start = clock();
-	ret = funcB(n, m, v);
-	end = clock();
-	cout << "B -> " << double(end - start)/CLOCKS_PER_SEC << "s - " << (ret == -1? n: n - ret) << " ops" << endl; 
+	testbench(fromFront, n, m, &v, "Do Inicio");
+	testbench(fromBack, n, m, &v, "Do Final");
 }

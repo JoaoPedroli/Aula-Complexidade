@@ -1,5 +1,7 @@
 from random import randint
-n = 10**5 
+import sys
+
+n = int(sys.argv[1])
 print(n, randint(0, n))
 print(*[randint(0, n) for i in range(n)])
 
