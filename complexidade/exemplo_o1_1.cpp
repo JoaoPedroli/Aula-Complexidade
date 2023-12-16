@@ -2,7 +2,11 @@
 using namespace std;
 
 int main() {
-  for(int i = 1; i <= 10; i++) { // O(1). Crescimento é 0, ou seja, valor constante
+  int valor;
+  cin >> valor;
+  for(int i = 1; i <= 10; i++) {
     cout << i << '\n';
   }
 }
+
+// 11
